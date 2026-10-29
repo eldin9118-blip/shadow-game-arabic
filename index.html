@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zill — A Shadow Play</title>
+    <meta
+      name="description"
+      content="An Arabic-inspired shadow puppet game with procedural acts, an adaptive director and generative maqam music."
+    />
+  </head>
+  <body>
+    <main id="app">
+      <div class="frame" id="frame">
+        <canvas id="stage" width="1200" height="720" aria-label="Shadow play stage"></canvas>
+
+        <header class="hud hud--top">
+          <div class="brand">
+            <span class="brand__mark">☾</span>
+            <span class="brand__name">Zill</span>
+          </div>
+
+          <div class="meter" id="meter">
+            <div class="meter__track"><div class="meter__fill" id="meterFill"></div></div>
+            <span class="meter__value" id="meterValue">0%</span>
+          </div>
+
+          <div class="act" id="levelBadge">Act I</div>
+
+          <div class="tools">
+            <button class="tool" id="btnHint" type="button">Hint</button>
+            <button class="tool" id="btnReset" type="button">Reset</button>
+            <button class="tool" id="btnSound" type="button" aria-pressed="true">Sound</button>
+          </div>
+        </header>
+
+        <footer class="hud hud--bottom">
+          <p class="prompt" id="prompt">Drag the shadows into place.</p>
+          <div class="turner">
+            <button class="tool tool--turn" id="btnTurnLeft" type="button" aria-label="Turn the selected puppet left">⟲</button>
+            <button class="tool tool--turn" id="btnTurnRight" type="button" aria-label="Turn the selected puppet right">⟳</button>
+          </div>
+        </footer>
+
+        <div class="overlay" id="overlay" hidden>
+          <div class="panel" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+            <p class="panel__kicker" id="overlayKicker"></p>
+            <h1 class="panel__title" id="overlayTitle"></h1>
+            <p class="panel__body" id="overlayBody"></p>
+            <button class="panel__action" id="overlayAction" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

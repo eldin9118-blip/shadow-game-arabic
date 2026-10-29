@@ -1,0 +1,36 @@
+# Base44 sandbox stack — development only.
+#
+# Runs the Vite dev server straight from the bind-mounted checkout so edits show
+# up in the preview without rebuilding an image. Dependencies are synced from
+# the committed lockfile on every start.
+
+services:
+  web:
+    image: node:22
+    working_dir: /app
+    command:
+      - sh
+      - -ec
+      - |
+        npm ci --no-audit --no-fund
+        exec npm run dev
+    ports:
+      - "3000:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - BASE44_PREVIEW_MODE
+      - BASE44_SANDBOX_HOST_DOMAIN
+      - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS
+    labels:
+      base44.project: "Zill"
+      base44.kind: "web"
+      base44.port: "3000"
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:5173/').then(function (r) { process.exit(r.ok ? 0 : 1); }).catch(function () { process.exit(1); })\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 90s
+    restart: on-failure
